@@ -1,6 +1,11 @@
-<ul>
-	<li><%= link_to "Tour", root_path %></li>
-	<li><%= link_to "About", about_path %></li>
-	<li><%= link_to "Contact", contact_path %></li>
-	<li><%= link_to "Pricing", pricing_path %></li>
-</ul>
+<div class="navbar">
+  <div class="navbar-inner">
+  	<%= link_to "Condo Motion", root_path, class: "brand" %>
+    <ul class="nav">
+      <li class="<%= cp(root_path) %>"><%= link_to "Tour", root_path %></li>
+			<li class="<%= cp(about_path) %>"><%= link_to "About", about_path %></li>
+			<li class="<%= cp(contact_path) %>"><%= link_to "Contact", contact_path %></li>
+			<li class="<%= cp(pricing_path) %>"><%= link_to "Pricing", pricing_path %></li>
+    </ul>
+  </div>
+</div>
