@@ -14,3 +14,9 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
+
+$(function(){
+    $('.alert, .notice').click(function(){
+        $(this).hide();
+    });
+});

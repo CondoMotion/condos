@@ -8,13 +8,14 @@
 </head>
 <body>
 	<% if notice %>
-		<p class="notice"><%= notice %></p>
+		<div class="flash alert alert-info"><%= notice %></div>
 	<% end %>
 	<% if alert %>
-  	<p class="alert"><%= alert %></p>
+  	<div class="flash alert"><%= alert %></div>
   <% end %>
+
   <%= render "home/menu" %>
-  
+
 	<div class="container-fluid">
 		<%= yield %>
 	</div>
