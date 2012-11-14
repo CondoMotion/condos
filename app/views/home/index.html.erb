@@ -1,3 +1,20 @@
 <h1>Hello World</h1>
 
 <p><%= current_role %></p>
+
+
+<% if can? :create, @company %>
+	<p>CREATE</p>
+<% end %>
+
+<% if can? :read, @company %>
+	<p>READ</p>
+<% end %>
+
+<% if can? :update, @company %>
+	<p>UPDATE</p>
+<% end %>
+
+<% if can? :destroy, @company %>
+	<p>DESTROY</p>
+<% end %>
