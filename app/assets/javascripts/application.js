@@ -16,6 +16,7 @@
 //= require_tree .
 
 $(function(){
+    $('.alert, .notice').delay(1000).fadeOut();
     $('.alert, .notice').click(function(){
         $(this).hide();
     });
