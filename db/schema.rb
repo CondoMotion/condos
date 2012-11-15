@@ -11,19 +11,34 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121115141600) do
+ActiveRecord::Schema.define(:version => 20121115173739) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
+    t.string   "phone"
     t.string   "address"
     t.string   "city"
     t.string   "state"
     t.string   "zip"
-    t.string   "phone"
+    t.integer  "owner_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "owner_id"
   end
+
+  create_table "sites", :force => true do |t|
+    t.string   "name"
+    t.string   "subdomain"
+    t.integer  "company_id"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "sites", ["company_id"], :name => "index_sites_on_company_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

@@ -1,5 +1,7 @@
 Condomotion2::Application.routes.draw do
 
+  resources :sites
+
   resources :companies
 
   get "company/edit"
