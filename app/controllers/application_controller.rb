@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def after_sign_in_path_for(resource)
-   sites_path
+    sites_path
   end
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
   end
 
 private
+  def load_site
+    @site = Site.find_by_subdomain!(request.subdomain)
+  end
+
   def current_company
     if current_user && current_user.owned_company
       @current_company = current_user.owned_company
