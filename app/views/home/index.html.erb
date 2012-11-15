@@ -1,23 +1,5 @@
-<h1>Hello World</h1>
 <% if user_signed_in? %>
-	<p><%= link_to(@company.name, company_path(@company)) unless current_user.owned_company.nil? %></p>
-	<p><%= link_to "Edit Profile", edit_user_registration_path(current_user) %></p>
+	<h1><%= link_to(@company.name, company_path(@company)) unless current_user.owned_company.nil? %></h1>
+<% else %>
+	<h1>Hello World</h1>
 <% end %> 
-
-<p>Current Role: <%= current_role %></p>
-
-<% if can? :create, @company %>
-	<p>CREATE</p>
-<% end %>
-
-<% if can? :read, @company %>
-	<p>READ</p>
-<% end %>
-
-<% if can? :update, @company %>
-	<p>UPDATE</p>
-<% end %>
-
-<% if can? :destroy, @company %>
-	<p>DESTROY</p>
-<% end %>

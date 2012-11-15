@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   end
 
 private
+
   def current_role
   	# UPDATE THIS METHOD TO DETERMINE CURRENT ROLE FOR THE USER
   	if user_signed_in?
@@ -17,7 +18,7 @@ private
   helper_method :current_role
 
   def current_ability
-	  @current_ability ||= Ability.new(current_role)
+	  @current_ability ||= Ability.new(current_role, current_user)
 	end
 
 end
