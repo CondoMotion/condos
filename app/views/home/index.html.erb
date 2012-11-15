@@ -1,6 +1,7 @@
 <h1>Hello World</h1>
 <% if user_signed_in? %>
-<h2>Owned Company: <%= current_user.owned_company.name unless current_user.owned_company.nil? %></h2>
+	<p><%= link_to(@company.name, company_path(@company)) unless current_user.owned_company.nil? %></p>
+	<p><%= link_to "Edit Profile", edit_user_registration_path(current_user) %></p>
 <% end %> 
 
 <p>Current Role: <%= current_role %></p>

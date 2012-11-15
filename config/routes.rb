@@ -1,5 +1,13 @@
 Condomotion2::Application.routes.draw do
 
+  resources :companies
+
+  get "company/edit"
+
+  get "company/update"
+
+  get "company/destroy"
+
   devise_for :users
 
   # You can have the root of your site routed with "root"
