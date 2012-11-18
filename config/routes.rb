@@ -1,9 +1,12 @@
 Condomotion2::Application.routes.draw do
-  match '', to: 'sites#show', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }
+  resources :posts
 
   resources :sites
 
   resources :companies
+
+  match '', to: 'sites#show', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }
+  match '/:post_type', to: 'sites#show'
 
   get "company/edit"
 

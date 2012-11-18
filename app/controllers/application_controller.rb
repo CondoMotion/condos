@@ -2,7 +2,12 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def after_sign_in_path_for(resource)
-    sites_path
+    if request.subdomain.present? && request.subdomain != 'www'
+      root_url(subdomain: request.subdomain)
+    else
+      sites_path
+    end
+
   end
 
   rescue_from CanCan::AccessDenied do |exception|
