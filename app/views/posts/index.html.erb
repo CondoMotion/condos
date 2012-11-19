@@ -1,0 +1,32 @@
+<h1>Listing posts</h1>
+
+<table class="table">
+  <tr>
+    <th>Title</th>
+    <th>Site</th>
+    <th>Type</th>
+    <th>Permission</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @posts.each do |post| %>
+  <tr>
+    <td><%= link_to post.title, post_url(post, subdomain: post.site.subdomain) %></td>
+    <td><%= post.site.name %></td>
+    <td><%= post.post_type.singularize.titleize %></td>
+    <td><%= post.permission_id %></td>
+    <td><%= link_to 'Edit', edit_post_path(post) %></td>
+    <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<% if can? :create, Post %>
+<br />
+
+<%= link_to 'Post News', new_post_path()+"/news" %> 
+| <%= link_to 'Post Document', new_post_path()+"/documents" %> 
+| <%= link_to 'Post Photo', new_post_path()+"/photos" %> 
+
+<% end %>

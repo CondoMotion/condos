@@ -1,0 +1,38 @@
+<p>
+  <b>Name:</b>
+  <%= @company.name %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @company.phone %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @company.address %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @company.city %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @company.state %>
+</p>
+
+<p>
+  <b>Zip:</b>
+  <%= @company.zip %>
+</p>
+
+<p>
+  <b>Owner:</b>
+  <%= @company.owner.email %>
+</p>
+
+<% if can? :edit, @company %>
+<%= link_to 'Edit', edit_company_path(@company) %>
+<% end %>

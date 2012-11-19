@@ -1,0 +1,49 @@
+<div class="dropdown" style="cursor: pointer;">
+  <h1 class="dropdown-toggle" id="drop4" data-toggle="dropdown">
+  	<%= @site.name %> <b class="caret" style="margin-top: 18px;"></b>
+  </h1>
+  <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+  	<% current_company.sites.each do |site| %> 
+  		<li><%= link_to site.name, edit_site_path(site), tabindex: "-1" %></li>
+  	<% end %>
+  </ul>
+</div>
+
+
+
+<div class="accordion" id="accordion2">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+        Settings
+      </a>
+    </div>
+    <div id="collapseOne" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <%= render 'form' %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row-fluid">
+	<div class="span3">
+		<h4>Managers</h4>
+	</div>
+	<div class="span3">
+		<h4>Residents</h4>
+	</div>
+	<div class="span6">
+		<h4>Posts</h4> 
+		<%= link_to 'Post News', new_post_url(subdomain: @site.subdomain)+"/news" %> 
+| <%= link_to 'Post Document', new_post_url(subdomain: @site.subdomain)+"/documents" %> 
+| <%= link_to 'Post Photo', new_post_url(subdomain: @site.subdomain)+"/photos" %> 
+		<ul>	
+			<% @site.posts.each do |post| %>
+			 <li><%= link_to post.title, edit_post_path(post) %></li>
+			<% end %>
+		</ul>		
+	</div>
+</div>
+
+
+<%= link_to 'Show', root_url(subdomain: @site.subdomain) %>

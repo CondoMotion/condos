@@ -1,0 +1,23 @@
+<p>
+  <b>Title:</b>
+  <%= @post.title %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @post.content %>
+</p>
+<% if @post.attachment? && @post.post_type != "photos" %>
+<p>
+	<%= link_to @post.attachment.filename, @post.attachment.url %>
+</p>
+<% end %>
+<% if @post.post_type == "photos" %>
+<p>
+	<%= link_to(image_tag(@post.attachment.thumb.url), @post.attachment.url) %>
+</p>
+<% end %>
+
+
+<%= link_to 'Edit', edit_post_url(@post, subdomain: "www") %> |
+<%= link_to 'Back', posts_url(subdomain: "www") %>

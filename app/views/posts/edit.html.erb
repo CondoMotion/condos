@@ -1,0 +1,6 @@
+<h1>Editing post</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', post_url(@post, subdomain: @post.site.subdomain) %> |
+<%= link_to 'Back', posts_path %>

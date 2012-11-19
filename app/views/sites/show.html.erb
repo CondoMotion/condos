@@ -1,0 +1,62 @@
+<p>
+<%= link_to "Home", root_url(subdomain: @site.subdomain) %>
+| <%= link_to "News", root_url(subdomain: @site.subdomain)+'news' %>
+| <%= link_to "Documents", root_url(subdomain: @site.subdomain)+'documents' %>
+| <%= link_to "Photos", root_url(subdomain: @site.subdomain)+'photos' %>
+
+<% if can? :edit, @site %>
+  | <%= link_to 'Edit Site', edit_site_url(@site, subdomain: "www") %>
+<% end %>
+<% if user_signed_in? %>
+  | <%= link_to 'Dashboard', sites_url(subdomain: "www") %>
+<% end %>
+<% if user_signed_in? %>
+  | <%= link_to "Sign Out", destroy_user_session_url(subdomain: @site.subdomain), method: :delete %>
+<% else %>
+  | <%= link_to "Sign In", new_user_session_url(subdomain: @site.subdomain) %>
+<% end %>
+</p>
+
+<% if params[:post_type].nil? %>
+<p>
+  <b>Name:</b>
+  <%= @site.name %>
+</p>
+
+<p>
+  <b>Subdomain:</b>
+  <%= @site.subdomain %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @site.address %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @site.city %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @site.state %>
+</p>
+
+<p>
+  <b>Zip:</b>
+  <%= @site.zip %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @site.description %>
+</p>
+<% end %>
+
+<% @site.posts.where(:post_type => params[:post_type]).each do |post| %>
+  <% if can? :read, post %>
+    <%= render :partial => post.post_type, :object => post %>
+  <% end %>
+<% end %>
+

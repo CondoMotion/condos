@@ -1,0 +1,5 @@
+
+<div style="float: left; width: 190px; height: 250px; background: #f1f1f1; margin-right: 30px;">
+  <h4><%= link_to site.name, edit_site_path(site) %></h4>
+  <p><%= link_to "View", root_url(subdomain: site.subdomain) %> | <%= link_to 'Delete', site, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+</div> 

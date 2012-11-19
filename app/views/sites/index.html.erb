@@ -1,0 +1,9 @@
+<h1><%= current_company.name %></h1>
+
+<%= render @sites %>
+<div class="clearfix"></div>
+
+<% if can? :create, Site %>
+  <br />
+  <%= link_to 'New Site', new_site_path %>
+<% end %>
