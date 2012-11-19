@@ -9,8 +9,8 @@
   	<div class="nav-collapse">
 	  	<ul class="nav pull-right">
         <% if user_signed_in? %>
-          <li class="<%= cp(sites_path) %>"><%= link_to "Sites", sites_path %></li>
-          <li class="<%= cp(posts_path) %>"><%= link_to "Posts", posts_path %></li>
+          <li class="<%= cp(sites_path) %>"><%= link_to "Sites", sites_url(subdomain: "www") %></li>
+          <li class="<%= cp(posts_path) %>"><%= link_to "Posts", posts_url(subdomain: "www") %></li>
         <% else %>
   	      <li class="<%= cp(root_path) %>"><%= link_to "Tour", root_path %></li>
   				<li class="<%= cp(about_path) %>"><%= link_to "About", about_path %></li>

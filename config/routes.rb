@@ -1,12 +1,10 @@
 Condomotion2::Application.routes.draw do
+  match '/posts/new(/:post_type)', to: 'posts#new'
   resources :posts
 
   resources :sites
 
   resources :companies
-
-  match '', to: 'sites#show', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }
-  match '/:post_type', to: 'sites#show'
 
   get "company/edit"
 
@@ -18,11 +16,15 @@ Condomotion2::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'home#index'
+
+
   %w[about contact pricing].each do |page|
     get page, controller: "home", action: page, :as => page
   end
+  match '', to: 'sites#show', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }
+  match '/:post_type', to: 'sites#show'
 
+  root :to => 'home#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
