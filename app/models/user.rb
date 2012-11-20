@@ -10,5 +10,18 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   has_one :owned_company, :class_name => "Company", :foreign_key => "owner_id"
+  belongs_to :company
+  has_many :memberships
+  has_many :sites, :through => :memberships
+
   accepts_nested_attributes_for :owned_company
+
+  def site_role(site)
+    if Membership.where(:user_id => self.id).where(:site_id => site.id).first().nil?
+      "guest"
+    else
+      Membership.where(:user_id => self.id).where(:site_id => site.id).first().role
+    end
+  end
+
 end

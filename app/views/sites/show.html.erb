@@ -16,10 +16,11 @@
   <% end %>
 <% end %>
 
-<div style="position: fixed; bottom: 0px; height: 40px;">
-  <%= form_for @site, :html => { :class => "form-inline" } do |f| %>
-    <%= f.select :layout_name, [["Standard", "site"], ["Dark", "dark"]] %>
-    <%= f.submit "Submit", class: "btn" %>
-  <% end %>
-
-</div>
+<% if can? :edit, @site %>
+  <div style="position: fixed; bottom: 0px; height: 40px;">
+    <%= form_for @site, html: { class: "form-inline" } do |f| %>
+      <%= f.select :layout_name, [["Standard", "site"], ["Dark", "dark"]] %>
+      <%= f.submit "Submit", class: "btn" %>
+    <% end %>
+  </div>
+<% end %>
