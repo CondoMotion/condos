@@ -7,7 +7,8 @@ class Ability
       can :manage, Site, :company_id => company.id
       can :manage, Post, :site => { :company_id => company.id }
       can :create, Post
-      can :manage, Membership
+      can :create, Membership
+      can :manage, Membership, :site => { :company_id => company.id }
     # else 
     #   can :read, :all
     end
