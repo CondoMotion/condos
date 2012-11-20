@@ -17,15 +17,15 @@ class ApplicationController < ActionController::Base
 
 private
   def load_site
-    @site = Site.find_by_subdomain!(request.subdomain)
-    if @site.nil?
+    @current_site = Site.find_by_subdomain!(request.subdomain)
+    if @current_site.nil?
       flash[:error] = "Site invalid"
       redirect_to root_url
     end
   end
-  
+
   def set_layout
-    (@site && @site.layout_name) || 'application'
+    (@current_site && @current_site.layout_name) || 'application'
   end
 
   def current_company

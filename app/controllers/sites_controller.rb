@@ -15,7 +15,7 @@ class SitesController < ApplicationController
   # GET /sites/1
   # GET /sites/1.json
   def show
-
+    @site = @current_site
     respond_to do |format|
       format.html # show.html.erb
     end
