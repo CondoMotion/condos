@@ -1,7 +1,8 @@
 class SitesController < ApplicationController
   before_filter :authenticate_user!, :except => :show
+  before_filter :load_site, :only => :show
   load_and_authorize_resource :except => :show
-  layout "site", only: :show
+
   # GET /sites
   # GET /sites.json
   def index
@@ -14,7 +15,6 @@ class SitesController < ApplicationController
   # GET /sites/1
   # GET /sites/1.json
   def show
-    @site = Site.find_by_subdomain!(request.subdomain)
 
     respond_to do |format|
       format.html # show.html.erb

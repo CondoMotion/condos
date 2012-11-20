@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  layout :set_layout
 
   def after_sign_in_path_for(resource)
     if request.subdomain.present? && request.subdomain != 'www'
@@ -17,6 +18,14 @@ class ApplicationController < ActionController::Base
 private
   def load_site
     @site = Site.find_by_subdomain!(request.subdomain)
+    if @site.nil?
+      flash[:error] = "Site invalid"
+      redirect_to root_url
+    end
+  end
+  
+  def set_layout
+    (@site && @site.layout_name) || 'application'
   end
 
   def current_company

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121119204642) do
+ActiveRecord::Schema.define(:version => 20121120142204) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -48,8 +48,10 @@ ActiveRecord::Schema.define(:version => 20121119204642) do
     t.string   "state"
     t.string   "zip"
     t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.string   "layout_name"
+    t.text     "custom_layout_content"
   end
 
   add_index "sites", ["company_id"], :name => "index_sites_on_company_id"

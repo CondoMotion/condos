@@ -1,0 +1,20 @@
+<p>
+	<%= link_to "Home", root_url(subdomain: @site.subdomain) %>
+	<% if can? :read, Post %>
+	| <%= link_to "News", root_url(subdomain: @site.subdomain)+'news' %>
+	| <%= link_to "Documents", root_url(subdomain: @site.subdomain)+'documents' %>
+	| <%= link_to "Photos", root_url(subdomain: @site.subdomain)+'photos' %>
+	<% end %>
+
+	<% if can? :edit, @site %>
+	  | <%= link_to 'Edit Site', edit_site_url(@site, subdomain: "www") %>
+	<% end %>
+	<% if current_user && current_user.manager? %>
+	  | <%= link_to 'Dashboard', sites_url(subdomain: "www") %>
+	<% end %>
+	<% if user_signed_in? %>
+	  | <%= link_to "Sign Out", destroy_user_session_url(subdomain: @site.subdomain), method: :delete %>
+	<% else %>
+	  | <%= link_to "Sign In", new_user_session_url(subdomain: @site.subdomain) %>
+	<% end %>
+</p>
