@@ -1,6 +1,7 @@
 class SitesController < ApplicationController
   before_filter :authenticate_user!, :except => :show
   load_and_authorize_resource :except => :show
+  layout "site", only: :show
   # GET /sites
   # GET /sites.json
   def index

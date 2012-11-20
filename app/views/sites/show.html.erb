@@ -1,13 +1,15 @@
 <p>
 <%= link_to "Home", root_url(subdomain: @site.subdomain) %>
+<% if can? :read, Post %>
 | <%= link_to "News", root_url(subdomain: @site.subdomain)+'news' %>
 | <%= link_to "Documents", root_url(subdomain: @site.subdomain)+'documents' %>
 | <%= link_to "Photos", root_url(subdomain: @site.subdomain)+'photos' %>
+<% end %>
 
 <% if can? :edit, @site %>
   | <%= link_to 'Edit Site', edit_site_url(@site, subdomain: "www") %>
 <% end %>
-<% if user_signed_in? %>
+<% if current_user && current_user.manager? %>
   | <%= link_to 'Dashboard', sites_url(subdomain: "www") %>
 <% end %>
 <% if user_signed_in? %>
@@ -19,39 +21,14 @@
 
 <% if params[:post_type].nil? %>
 <p>
-  <b>Name:</b>
-  <%= @site.name %>
+  <%= @site.name %> <br>
+  <%= @site.address %> <br>
+  <%= @site.city %>, <%= @site.state %> <%= @site.zip %>
 </p>
 
-<p>
-  <b>Subdomain:</b>
-  <%= @site.subdomain %>
-</p>
-
-<p>
-  <b>Address:</b>
-  <%= @site.address %>
-</p>
-
-<p>
-  <b>City:</b>
-  <%= @site.city %>
-</p>
-
-<p>
-  <b>State:</b>
-  <%= @site.state %>
-</p>
-
-<p>
-  <b>Zip:</b>
-  <%= @site.zip %>
-</p>
-
-<p>
-  <b>Description:</b>
+<div class="well">
   <%= @site.description %>
-</p>
+</div>
 <% end %>
 
 <% @site.posts.where(:post_type => params[:post_type]).each do |post| %>
