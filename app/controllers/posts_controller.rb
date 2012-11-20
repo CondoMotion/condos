@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_site, :only => :show
+  layout "site", only: :show
 
   load_and_authorize_resource
   # GET /posts
