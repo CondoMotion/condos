@@ -1,8 +1,8 @@
 <h1><%= current_company.name %></h1>
 
 <ul>
-<% current_company.users.each do |user| %>
-  <li><%= user.email %> (<%= user.manager? ? "Manager" : "Non-manager" %>)</li>
+<% current_company.users.where(:manager => true).each do |user| %>
+  <li><%= user.email %></li>
 <% end %>
 </ul>
 
