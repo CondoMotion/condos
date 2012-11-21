@@ -42,11 +42,8 @@ class MembershipsController < ApplicationController
   # POST /memberships.json
   def create
   	@site = Site.find(params[:membership][:site_id])
-  	if @site.temp_pw
-  		@pw = @site.temp_pw
-  	else
-  		@pw = "temp123"
-  	end
+  	@o =  [('a'..'z'),('A'..'Z'), (0..9)].map{|i| i.to_a}.flatten
+		@pw = (0...8).map{ o[rand(o.length)] }.join
 
   	if current_company.users.find_by_email(params[:email]).nil?
   		@user = User.new(:email => params[:email])
@@ -104,7 +101,8 @@ class MembershipsController < ApplicationController
 
   def batch_create_managers
 		params[:emails].split(",").each do |email|
-			@pw = "randompw" #need to generate random pw
+			@o =  [('a'..'z'),('A'..'Z'), (0..9)].map{|i| i.to_a}.flatten
+			@pw = (0...8).map{ o[rand(o.length)] }.join
 			if current_company.users.find_by_email(email).nil?
 		    @user = current_company.users.new(
 		    	:email => email,
@@ -124,7 +122,9 @@ class MembershipsController < ApplicationController
 
   def batch_create_residents
   	params[:emails].split(",").each do |email|
-			@pw = "randompw" #TODO: need to generate random pw
+			@o =  [('a'..'z'),('A'..'Z'), (0..9)].map{|i| i.to_a}.flatten
+			@pw = (0...8).map{ o[rand(o.length)] }.join
+
 			@site = Site.find(params[:site_id])
 
 	    if current_company.users.find_by_email(email).nil?
