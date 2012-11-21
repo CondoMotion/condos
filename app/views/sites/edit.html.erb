@@ -25,6 +25,19 @@
     </div>
   </div>
 </div>
+
+<div class="row-fluid">
+	<div class="span12">
+		<%= form_tag batch_create_residents_memberships_path, :method => :post do %>
+		  <%= label_tag "Emails (separated by commas)" %>
+		  <%= text_area_tag :emails %>
+		  <%= hidden_field_tag :site_id, @site.id %>
+		  <%= submit_tag "Invite!", class: "btn" %>
+		<% end %>
+	</div>
+</div>
+
+
 <div class="row-fluid">
 	<div class="span3">
 		<h4>Managers</h4>

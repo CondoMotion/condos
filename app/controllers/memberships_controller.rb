@@ -1,10 +1,11 @@
 class MembershipsController < ApplicationController
 	before_filter :authenticate_user!
 	load_and_authorize_resource
+	skip_authorize_resource :only => [:batch_create_residents, :batch_create_managers]
   # GET /memberships
   # GET /memberships.json
   def index
-    @memberships = @memberships.order(:site_id)
+    @memberships = @memberships.order(:site_id, :role)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -99,5 +100,58 @@ class MembershipsController < ApplicationController
       format.html { redirect_to memberships_url }
       format.json { head :no_content }
     end
+  end
+
+  def batch_create_managers
+		params[:emails].split(",").each do |email|
+			@pw = "randompw" #need to generate random pw
+			if current_company.users.find_by_email(email).nil?
+		    @user = current_company.users.new(
+		    	:email => email,
+		    	:password => @pw,
+		    	:password_confirmation => @pw,
+		    	:manager => 1
+		    )
+		  else
+		  	@user = current_company.users.find_by_email(email)
+		  end
+		    @user.save
+	  end
+	  respond_to do |format|
+	  	format.html { redirect_to sites_url, notice: 'Managers were successfully added.' }
+	  end
+  end
+
+  def batch_create_residents
+  	params[:emails].split(",").each do |email|
+			@pw = "randompw" #TODO: need to generate random pw
+			@site = Site.find(params[:site_id])
+
+	    if current_company.users.find_by_email(email).nil?
+		    @user = current_company.users.new(
+		    	:email => email,
+		    	:password => @pw,
+		    	:password_confirmation => @pw,
+		    	:manager => 0
+		    )
+		  else
+		  	@user = current_company.users.find_by_email(email)
+		  end
+
+	    if Membership.find_by_user_id_and_site_id_and_role(@user.id, @site.id, 'resident').nil?
+	    	@membership = Membership.new()
+	    	@membership.user = @user
+	    	@membership.site = @site
+	    	@membership.role = 'resident'
+	    else
+	    	@membership = Membership.find_by_user_id_and_site_id_and_role(@user.id, @site.id, 'resident')
+	    end
+
+	    @membership.save
+
+	  end
+	  respond_to do |format|
+	  	format.html { redirect_to edit_site_url(@site), notice: 'Residents were successfully added.' }
+	  end
   end
 end

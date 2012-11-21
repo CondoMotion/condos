@@ -3,7 +3,12 @@ Condomotion2::Application.routes.draw do
   match '/posts/new(/:post_type)', to: 'posts#new'
   resources :posts
 
-  resources :memberships
+  resources :memberships do
+    collection do
+      post 'batch_create_managers'
+      post 'batch_create_residents'
+    end
+  end
 
   resources :sites
 
