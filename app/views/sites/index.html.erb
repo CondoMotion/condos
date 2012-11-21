@@ -7,7 +7,7 @@
 </ul>
 
 <%= form_tag batch_create_managers_memberships_path, :method => :post do %>
-  <%= label_tag "Emails (separated by commas)" %>
+  <%= label_tag "Add managers (emails separated by commas)" %>
   <%= text_area_tag :emails %>
   <%= submit_tag "Invite!", class: "btn" %>
 <% end %>

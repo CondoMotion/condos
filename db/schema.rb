@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121120222929) do
+ActiveRecord::Schema.define(:version => 20121121205319) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -63,7 +63,6 @@ ActiveRecord::Schema.define(:version => 20121120222929) do
     t.datetime "updated_at",            :null => false
     t.string   "layout_name"
     t.text     "custom_layout_content"
-    t.string   "temp_pw"
   end
 
   add_index "sites", ["company_id"], :name => "index_sites_on_company_id"

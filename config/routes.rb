@@ -29,7 +29,7 @@ Condomotion2::Application.routes.draw do
   %w[about contact pricing].each do |page|
     get page, controller: "home", action: page, :as => page
   end
-  match '', to: 'sites#show', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }
+  match '/', to: 'sites#show', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }
   match '/:post_type', to: 'sites#show'
 
   root :to => 'home#index'

@@ -5,7 +5,16 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <style type="text/css">
   body {
-  	background: #069;
+  	
+  }
+  .well { color: #333; }
+  .header {
+  	padding: 50px 0px;
+  	background: rgb(85, 98, 112);
+  	border-top: 5px solid rgb(79, 184, 179);
+  	margin-bottom: 10px;
+  }
+  .header a {
   	color: #fff;
   }
   </style>
@@ -20,8 +29,12 @@
   	<div class="flash alert"><%= alert %></div>
   <% end %>
 
+  <div class="header">
+  	<div class="container-fluid">
+  		<%= render "sites/menu" %>
+  	</div>
+  </div>
 	<div class="container-fluid">
-		<%= render "sites/menu" %>
 		<%= yield %>
 	</div>
 

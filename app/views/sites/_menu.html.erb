@@ -1,5 +1,5 @@
 <p>
-	<%= link_to "Home", root_url(subdomain: @current_site.subdomain) %>
+	<%= link_to @current_site.name, root_url(subdomain: @current_site.subdomain) %>
 	<% if can? :read, Post %>
 	| <%= link_to "News", root_url(subdomain: @current_site.subdomain)+'news' %>
 	| <%= link_to "Documents", root_url(subdomain: @current_site.subdomain)+'documents' %>
