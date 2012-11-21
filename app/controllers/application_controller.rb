@@ -29,9 +29,7 @@ private
   end
 
   def current_company
-    if current_user && current_user.owned_company
-      @current_company = current_user.owned_company
-    elsif current_user && current_user.company
+    if current_user
       @current_company = current_user.company
     else
       @current_company = nil
