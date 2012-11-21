@@ -43,7 +43,7 @@ class MembershipsController < ApplicationController
   def create
   	@site = Site.find(params[:membership][:site_id])
   	@o =  [('a'..'z'),('A'..'Z'), (0..9)].map{|i| i.to_a}.flatten
-		@pw = (0...8).map{ o[rand(o.length)] }.join
+		@pw = (0...8).map{ @o[rand(@o.length)] }.join
 
   	if current_company.users.find_by_email(params[:email]).nil?
   		@user = User.new(:email => params[:email])
@@ -102,7 +102,7 @@ class MembershipsController < ApplicationController
   def batch_create_managers
 		params[:emails].split(",").each do |email|
 			@o =  [('a'..'z'),('A'..'Z'), (0..9)].map{|i| i.to_a}.flatten
-			@pw = (0...8).map{ o[rand(o.length)] }.join
+			@pw = (0...8).map{ @o[rand(@o.length)] }.join
 			if current_company.users.find_by_email(email).nil?
 		    @user = current_company.users.new(
 		    	:email => email,
@@ -123,7 +123,7 @@ class MembershipsController < ApplicationController
   def batch_create_residents
   	params[:emails].split(",").each do |email|
 			@o =  [('a'..'z'),('A'..'Z'), (0..9)].map{|i| i.to_a}.flatten
-			@pw = (0...8).map{ o[rand(o.length)] }.join
+			@pw = (0...8).map{ @o[rand(@o.length)] }.join
 
 			@site = Site.find(params[:site_id])
 
