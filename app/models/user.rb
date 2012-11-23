@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 
   def site_role(site)
     if Membership.where(:user_id => self.id).where(:site_id => site.id).first().nil?
-      "guest"
+      Role.new(:permission => 0, :name => "guest", :company_id => current_company.id)
     else
       Membership.where(:user_id => self.id).where(:site_id => site.id).first().role
     end

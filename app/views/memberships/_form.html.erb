@@ -20,8 +20,8 @@
     <%= text_field_tag :email, @membership.user.try(:email) %>
   </div>
   <div class="field">
-    <%= f.label :role %>
-    <%= f.collection_select :role, Membership::ROLES, :to_s, :titleize %>
+    <%= f.label :role_id %>
+    <%= f.collection_select :role_id, current_company.roles.all, :id, :name %>
   </div>
   <div class="actions">
     <%= f.submit "Submit", class: "btn" %>

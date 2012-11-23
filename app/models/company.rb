@@ -5,6 +5,7 @@ class Company < ActiveRecord::Base
   belongs_to :owner, :class_name => "User"
   has_many :sites
   has_many :users
+  has_many :roles
 
   validates_presence_of :name
 

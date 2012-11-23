@@ -5,7 +5,7 @@ class MembershipsController < ApplicationController
   # GET /memberships
   # GET /memberships.json
   def index
-    @memberships = @memberships.order(:site_id, :role)
+    @memberships = @memberships.order(:site_id, :role_id)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -79,7 +79,7 @@ class MembershipsController < ApplicationController
 
     respond_to do |format|
       if @membership.update_attributes(params[:membership])
-        format.html { redirect_to @membership, notice: 'Membership was successfully updated.' }
+        format.html { redirect_to edit_site_url(@membership.site), notice: 'Membership was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -94,7 +94,7 @@ class MembershipsController < ApplicationController
     @membership.destroy
 
     respond_to do |format|
-      format.html { redirect_to memberships_url }
+      format.html { redirect_to edit_site_url(@membership.site) }
       format.json { head :no_content }
     end
   end
@@ -112,6 +112,7 @@ class MembershipsController < ApplicationController
 		    )
 		  else
 		  	@user = current_company.users.find_by_email(email)
+		  	@user.manager = 1
 		  end
 		    @user.save
 	  end
@@ -126,6 +127,7 @@ class MembershipsController < ApplicationController
 			@pw = (0...8).map{ @o[rand(@o.length)] }.join
 
 			@site = Site.find(params[:site_id])
+			@role_id = params[:role]
 
 	    if current_company.users.find_by_email(email).nil?
 		    @user = current_company.users.new(
@@ -138,13 +140,13 @@ class MembershipsController < ApplicationController
 		  	@user = current_company.users.find_by_email(email)
 		  end
 
-	    if Membership.find_by_user_id_and_site_id_and_role(@user.id, @site.id, 'resident').nil?
+	    if Membership.find_by_user_id_and_site_id_and_role_id(@user.id, @site.id, @role_id).nil?
 	    	@membership = Membership.new()
 	    	@membership.user = @user
 	    	@membership.site = @site
-	    	@membership.role = 'resident'
+	    	@membership.role_id = @role_id
 	    else
-	    	@membership = Membership.find_by_user_id_and_site_id_and_role(@user.id, @site.id, 'resident')
+	    	@membership = Membership.find_by_user_id_and_site_id_and_role_id(@user.id, @site.id, @role_id)
 	    end
 
 	    @membership.save
