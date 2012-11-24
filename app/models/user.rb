@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   belongs_to :company
   has_many :memberships
   has_many :sites, :through => :memberships
+  has_many :posts
 
   accepts_nested_attributes_for :owned_company
 

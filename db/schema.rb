@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121122181306) do
+ActiveRecord::Schema.define(:version => 20121124160258) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20121122181306) do
     t.datetime "updated_at",    :null => false
     t.string   "post_type"
     t.string   "attachment"
+    t.integer  "user_id"
   end
 
   add_index "posts", ["permission_id"], :name => "index_posts_on_permission_id"

@@ -1,5 +1,6 @@
 class Post < ActiveRecord::Base
   belongs_to :site
+  belongs_to :user
   attr_accessible :content, :title, :site_id, :permission_id, :post_type, :attachment, :remote_attachment_url
   mount_uploader :attachment, AttachmentUploader
 
