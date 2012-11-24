@@ -13,12 +13,13 @@ class User < ActiveRecord::Base
   belongs_to :company
   has_many :memberships
   has_many :sites, :through => :memberships
+  has_many :posts
 
   accepts_nested_attributes_for :owned_company
 
   def site_role(site)
     if Membership.where(:user_id => self.id).where(:site_id => site.id).first().nil?
-      "guest"
+      Role.new(:permission => 0, :name => "guest", :company_id => current_company.id)
     else
       Membership.where(:user_id => self.id).where(:site_id => site.id).first().role
     end

@@ -4,9 +4,11 @@
   </h1>
   <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
   	<li><%= link_to 'View Site', root_url(subdomain: @site.subdomain) %></li>
-  	<li class="divider"></li>
-  	<% current_company.sites.where("id <> ?", @site.id).each do |site| %> 
-			<li><%= link_to site.name, edit_site_path(site), tabindex: "-1" %></li>
+  	<% if current_company.sites.length > 1 %>
+	  	<li class="divider"></li>
+	  	<% current_company.sites.where("id <> ?", @site.id).each do |site| %> 
+				<li><%= link_to site.name, edit_site_path(site), tabindex: "-1" %></li>
+	  	<% end %>
   	<% end %>
   </ul>
 </div>
@@ -31,6 +33,7 @@
 		<%= form_tag batch_create_residents_memberships_path, :method => :post do %>
 		  <%= label_tag "Add residents (emails separated by commas)" %>
 		  <%= text_area_tag :emails %>
+		  <%= select("role", "", current_company.roles.all.collect {|p| [ p.name, p.id ] }, {}, {id: "role", name: "role"}) %>
 		  <%= hidden_field_tag :site_id, @site.id %>
 		  <%= submit_tag "Invite!", class: "btn" %>
 		<% end %>
@@ -41,27 +44,28 @@
 <div class="row-fluid">
 	<div class="span3">
 		<h4>Managers</h4>
-		<ul>
-			<%= form_for @site do |f| %>
-				<%= hidden_field_tag "site[user_ids][]", nil %>
-				<% current_company.users.where(:manager => true).each do |user| %>
-
-					<label class="checkbox">
-            <%= check_box_tag "site[user_ids][]", user.id, @site.user_ids.include?(user.id), id: dom_id(user) %> <%= user.email %> (<%= user.site_role(@site).titleize %>)
-          </label>
-
-				<% end %>
-		</ul>
+		<%= form_for @site do |f| %>
+			<%= hidden_field_tag "site[user_ids][]", nil %>
+			<% current_company.users.where(:manager => true).each do |user| %>
+				<label class="checkbox">
+          <%= check_box_tag "site[user_ids][]", user.id, @site.user_ids.include?(user.id), id: dom_id(user) %> <%= user.email %>
+        </label>
+			<% end %>
+			<% @site.memberships.each do |m| %>
+				<% unless m.role.name == "Manager" %>
+         <%= hidden_field_tag "site[user_ids][]", m.user.id, id: dom_id(m.user) %>
+        <% end %>
+			<% end %>
+			<%= f.submit "Save", class: "btn" %>
+		<% end %>
 	</div>
 	<div class="span3">
 		<h4>Residents</h4>
 		<ul>
-				<% @site.memberships.where("role <> ?", "manager").each do |m| %>
-				  <label class="checkbox">
-            <%= check_box_tag "site[user_ids][]", m.user.id, @site.user_ids.include?(m.user.id), id: dom_id(m.user) %> <%= m.user.email %> (<%= m.role.titleize %>)
-          </label>
-				<% end %>
-				<%= f.submit "Save", class: "btn" %>
+			<% @site.memberships.each do |m| %>
+				<% unless m.role.name == "Manager" %>
+	      	<li><%= link_to(m.user.email, edit_membership_path(m)) %> (<%= m.role.name.titleize %>) <%= link_to "X", m, method: :delete %></li>
+				<% end %>			
 			<% end %>
 		</ul>
 	</div>

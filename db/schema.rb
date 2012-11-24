@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121121205319) do
+ActiveRecord::Schema.define(:version => 20121124160258) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -28,9 +28,9 @@ ActiveRecord::Schema.define(:version => 20121121205319) do
   create_table "memberships", :force => true do |t|
     t.integer  "site_id"
     t.integer  "user_id"
-    t.string   "role"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "role_id"
   end
 
   add_index "memberships", ["site_id"], :name => "index_memberships_on_site_id"
@@ -45,10 +45,21 @@ ActiveRecord::Schema.define(:version => 20121121205319) do
     t.datetime "updated_at",    :null => false
     t.string   "post_type"
     t.string   "attachment"
+    t.integer  "user_id"
   end
 
   add_index "posts", ["permission_id"], :name => "index_posts_on_permission_id"
   add_index "posts", ["site_id"], :name => "index_posts_on_site_id"
+
+  create_table "roles", :force => true do |t|
+    t.integer  "company_id"
+    t.string   "name"
+    t.integer  "permission"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "roles", ["company_id"], :name => "index_roles_on_company_id"
 
   create_table "sites", :force => true do |t|
     t.string   "name"

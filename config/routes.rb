@@ -1,5 +1,7 @@
 Condomotion2::Application.routes.draw do
 
+  resources :roles
+
   match '/posts/new(/:post_type)', to: 'posts#new'
   resources :posts
 

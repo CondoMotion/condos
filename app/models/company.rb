@@ -5,6 +5,9 @@ class Company < ActiveRecord::Base
   belongs_to :owner, :class_name => "User"
   has_many :sites
   has_many :users
+  has_many :roles
+
+  before_create :add_default_roles
 
   validates_presence_of :name
 
@@ -14,6 +17,20 @@ private
 		@owner.company_id = self.id
 		@owner.manager = 1 
 		@owner.save
+	end
+
+	def add_default_roles
+		@role = self.roles.new(name: "Resident", permission: 1)
+		@role.save
+
+		@role = self.roles.new(name: "Admin", permission: 2)
+		@role.save
+
+		@role = self.roles.new(name: "Trustee", permission: 3)
+		@role.save
+
+		@role = self.roles.new(name: "Manager", permission: 4)
+		@role.save
 	end
 
 end

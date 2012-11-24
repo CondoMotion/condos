@@ -49,6 +49,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @sites = current_company.sites
+    @post.user = current_user
 
     respond_to do |format|
       if @post.save
