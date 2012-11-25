@@ -3,7 +3,7 @@ Condomotion2::Application.routes.draw do
   resources :roles
 
   match '/:post_type/new', to: 'posts#new'
-  %W[documents news photos].each do |type|
+  Post::POST_TYPES.each do |type|
     match '/'+type+'/new', to: 'posts#new', as: 'new_'+type
   end 
 
