@@ -26,6 +26,7 @@ Condomotion2::Application.configure do
   :enable_starttls_auto => true  }
   config.action_mailer.default_url_options = { :host => 'condomotion2.dev' }
 
+
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
