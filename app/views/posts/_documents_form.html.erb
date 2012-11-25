@@ -11,6 +11,8 @@
     </div>
   <% end %>
 
+  <%= f.hidden_field :post_type %>
+  <%= f.hidden_field :site_id %>
   <% if @post.site.nil? %>
     <div class="field">
       <%= f.label :site %>
@@ -21,30 +23,15 @@
     <%= f.label :title %>
     <%= f.text_field :title %>
   </div>
-  <% if @post.post_type == 'news' %>
-    <div class="field">
-      <%= f.label :content %>
-      <%= f.text_area :content, rows: 5 %>
-    </div>
-  <% end %>
-  <%= f.hidden_field :post_type %>
-  <%= f.hidden_field :site_id %>
   <div class="field">
     <%= f.label :permission %>
     <%= collection_select :post, :permission_id, current_company.roles.all, :id, :name %>
   </div>
-  <% unless @post.post_type == 'news' %>
-    <div class="field">
-      <%= f.label :attachment %>
-      <%= f.file_field :attachment %>
-    </div>
-  <% end %>
-  <% if @post.post_type == 'photos' %>
-    <div class="field">
-      <%= f.label :remote_attachment_url, "or image URL" %>
-      <%= f.text_field :remote_attachment_url %>
-    </div>
-  <% end %>
+  <div class="field">
+    <%= f.label :attachment %>
+    <%= f.file_field :attachment %>
+  </div>
+  
   <div class="actions">
     <%= f.submit "Submit", class: "btn" %>
   </div>

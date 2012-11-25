@@ -71,9 +71,9 @@
 	</div>
 	<div class="span6">
 		<h4>Posts</h4> 
-		<%= link_to 'Post News', new_post_url(subdomain: @site.subdomain)+"/news" %> 
-| <%= link_to 'Post Document', new_post_url(subdomain: @site.subdomain)+"/documents" %> 
-| <%= link_to 'Post Photo', new_post_url(subdomain: @site.subdomain)+"/photos" %> 
+		<%= link_to 'Post News', new_news_url(subdomain: @site.subdomain) %> 
+| <%= link_to 'Post Document', new_documents_url(subdomain: @site.subdomain) %> 
+| <%= link_to 'Post Photo', new_photos_url(subdomain: @site.subdomain) %> 
 		<ul>	
 			<% @site.posts.each do |post| %>
 			 <li><%= link_to post.title, edit_post_path(post) %></li>
