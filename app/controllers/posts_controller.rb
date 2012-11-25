@@ -53,6 +53,12 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
+        if @post.attachment?
+          PostMailer.new_post(@post, request.protocol + request.host_with_port + @post.attachment.url).deliver
+        else
+          PostMailer.new_post(@post, "").deliver
+        end
+
         format.html { redirect_to post_url(@post, subdomain: @post.site.subdomain), notice: 'Post was successfully created.' }
         format.json { render json: @post, status: :created, location: @post }
       else
