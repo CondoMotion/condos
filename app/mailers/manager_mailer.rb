@@ -1,4 +1,4 @@
-class ManagerMailer < ActionMailer::Base
+class UserMailer < ActionMailer::Base
   default from: "info@condomotion.com"
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -6,10 +6,11 @@ class ManagerMailer < ActionMailer::Base
   #
   #   en.manager_mailer.invite_manager.subject
   #
-  def invite_manager(invitee, invitedBy)
+  def invite_user(invitee, invitedBy)
     @invitee = invitee
     @invitedBy = invitedBy
 
     mail to: invitee.email, subject: "You've been invited to Condo Motion"
   end
+
 end

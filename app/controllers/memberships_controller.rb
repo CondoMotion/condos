@@ -104,13 +104,13 @@ class MembershipsController < ApplicationController
 			@o =  [('a'..'z'),('A'..'Z'), (0..9)].map{|i| i.to_a}.flatten
 			@pw = (0...8).map{ @o[rand(@o.length)] }.join
 			if current_company.users.find_by_email(email).nil?
-                          @user = current_company.users.new(
-                                                            :email => email,
-                                                            :password => @pw,
-                                                            :password_confirmation => @pw,
-                                                            :manager => 1
-                                                            )
-                          ManagerMailer.invite_manager(@user, current_user).deliver
+        @user = current_company.users.new(
+          :email => email,
+          :password => @pw,
+          :password_confirmation => @pw,
+          :manager => 1
+          )
+        UserMailer.invite_user(@user, current_user).deliver
 		  else
 		  	@user = current_company.users.find_by_email(email)
 		  	@user.manager = 1
@@ -146,6 +146,7 @@ class MembershipsController < ApplicationController
 	    	@membership.user = @user
 	    	@membership.site = @site
 	    	@membership.role_id = @role_id
+	    	UserMailer.invite_user(@user, current_user).deliver
 	    else
 	    	@membership = Membership.find_by_user_id_and_site_id_and_role_id(@user.id, @site.id, @role_id)
 	    end
