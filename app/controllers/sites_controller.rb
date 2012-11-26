@@ -16,6 +16,8 @@ class SitesController < ApplicationController
   # GET /sites/1.json
   def show
     @site = @current_site
+    @posts = @site.posts
+
     respond_to do |format|
       format.html # show.html.erb
     end

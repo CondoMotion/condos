@@ -2,7 +2,9 @@ class Ability
   include CanCan::Ability
 
   def initialize(role, user, company)
-    if role == :admin
+    user ||= User.new
+
+    if user.id == company.owner.id
       can :manage, Company, :owner_id => user.id
       can :manage, Site, :company_id => company.id
       can :manage, Post, :site => { :company_id => company.id }
@@ -10,8 +12,10 @@ class Ability
       can :create, Membership
       can :manage, Membership, :site => { :company_id => company.id }
       can :manage, Role, :company_id => company.id
-    # else 
-    #   can :read, :all
+    elsif user.manager? 
+      can :read, :all
+    else
+      can :read, Post, :permission_id => role.permission
     end
 
     # Define abilities for the passed in user here. For example:

@@ -29,7 +29,7 @@
   </div>
   <div class="field">
     <%= f.label :permission %>
-    <%= collection_select :post, :permission_id, current_company.roles.all, :id, :name %>
+    <%= collection_select :post, :permission_id, current_company.roles.all+[Role.new(name:"Guest", permission: 0)], :permission, :name %>
   </div>
 
   <div class="actions">

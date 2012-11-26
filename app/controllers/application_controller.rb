@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
     else
       sites_path
     end
-
   end
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -31,6 +30,8 @@ private
   def current_company
     if current_user
       @current_company = current_user.company
+    elsif @current_site
+      @current_company = @current_site.company
     else
       @current_company = nil
     end
@@ -42,7 +43,7 @@ private
   	if user_signed_in?
   		@current_role ||= :admin 
   	else
-  		@current_role ||= :guest
+  		@current_role ||= Role.new(:permission => 0)
   	end
   end
   helper_method :current_role
