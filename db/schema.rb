@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121124160258) do
+ActiveRecord::Schema.define(:version => 20121127120844) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -25,6 +25,19 @@ ActiveRecord::Schema.define(:version => 20121124160258) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "documents", :force => true do |t|
+    t.string   "title"
+    t.integer  "site_id"
+    t.integer  "user_id"
+    t.integer  "permission"
+    t.string   "attachment"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "documents", ["site_id"], :name => "index_documents_on_site_id"
+  add_index "documents", ["user_id"], :name => "index_documents_on_user_id"
+
   create_table "memberships", :force => true do |t|
     t.integer  "site_id"
     t.integer  "user_id"
@@ -35,6 +48,32 @@ ActiveRecord::Schema.define(:version => 20121124160258) do
 
   add_index "memberships", ["site_id"], :name => "index_memberships_on_site_id"
   add_index "memberships", ["user_id"], :name => "index_memberships_on_user_id"
+
+  create_table "news", :force => true do |t|
+    t.string   "title"
+    t.integer  "site_id"
+    t.integer  "user_id"
+    t.integer  "permission"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.text     "content"
+  end
+
+  add_index "news", ["site_id"], :name => "index_news_on_site_id"
+  add_index "news", ["user_id"], :name => "index_news_on_user_id"
+
+  create_table "photos", :force => true do |t|
+    t.string   "title"
+    t.integer  "site_id"
+    t.integer  "user_id"
+    t.integer  "permission"
+    t.string   "attachment"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "photos", ["site_id"], :name => "index_photos_on_site_id"
+  add_index "photos", ["user_id"], :name => "index_photos_on_user_id"
 
   create_table "posts", :force => true do |t|
     t.string   "title"

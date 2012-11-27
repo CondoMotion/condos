@@ -1,0 +1,28 @@
+<p>
+  <b>Title:</b>
+  <%= @document.title %>
+</p>
+
+<p>
+  <b>Site:</b>
+  <%= @document.site %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @document.user %>
+</p>
+
+<p>
+  <b>Permission:</b>
+  <%= @document.permission %>
+</p>
+
+<p>
+  <b>Attachment:</b>
+  <%= @document.attachment %>
+</p>
+
+
+<%= link_to 'Edit', edit_document_path(@document) %> |
+<%= link_to 'Back', documents_path %>

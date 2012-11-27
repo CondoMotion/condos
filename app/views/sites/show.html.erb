@@ -1,4 +1,4 @@
-<% if params[:post_type].nil? %>
+
 <p>
   <%= @site.name %> <br>
   <%= @site.address %> <br>
@@ -8,31 +8,6 @@
 <div class="well">
   <%= @site.description %>
 </div>
-<% end %>
-
-<% if params[:post_type] == 'photos' %>
-  <% @posts.where(:post_type => 'photos').in_groups_of(4, false) do |row_photos| %>
-    <div class="row-fluid">
-      <ul class="thumbnails">
-        <% for photo in row_photos %>
-          <% if can? :read, photo %>
-            <li class="span3">
-              <a href="#" class="thumbnail">
-                <%= image_tag photo.attachment.thumb.url if photo.attachment? %>
-              </a>
-            </li>
-          <% end %>
-        <% end %>
-      </ul>
-    </div>  
-  <% end %>
-<% else %>
-  <% @posts.where(:post_type => params[:post_type]).each do |post| %>
-    <% if can? :read, post %>
-    <%= render :partial => post.post_type, :object => post %>
-    <% end %>
-  <% end %>
-<% end %>
 
 
 <% if can? :edit, @site %>

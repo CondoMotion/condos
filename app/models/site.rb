@@ -1,6 +1,8 @@
 class Site < ActiveRecord::Base
   belongs_to :company
-  has_many :posts  
+  has_many :documents
+  has_many :photos
+  has_many :news
   has_many :memberships
   has_many :users, :through => :memberships
   attr_accessible :address, :city, :description, :name, :state, :subdomain, :zip, :layout_name, :user_ids

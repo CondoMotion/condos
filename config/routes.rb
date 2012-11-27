@@ -1,13 +1,10 @@
 Condomotion2::Application.routes.draw do
+  match '/', to: 'sites#show', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }
 
+  resources :news
+  resources :photos
+  resources :documents
   resources :roles
-
-  match '/:post_type/new', to: 'posts#new'
-  Post::POST_TYPES.each do |type|
-    match '/'+type+'/new', to: 'posts#new', as: 'new_'+type
-  end 
-
-  resources :posts
 
   resources :memberships do
     collection do
@@ -17,7 +14,6 @@ Condomotion2::Application.routes.draw do
   end
 
   resources :sites
-
   resources :companies
 
   get "company/edit"
@@ -35,8 +31,7 @@ Condomotion2::Application.routes.draw do
   %w[about contact pricing].each do |page|
     get page, controller: "home", action: page, :as => page
   end
-  match '/', to: 'sites#show', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }
-  match '/:post_type', to: 'sites#show'
+  
 
   root :to => 'home#index'
   # The priority is based upon order of creation:

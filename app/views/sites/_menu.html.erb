@@ -1,9 +1,9 @@
 <p>
 	<%= link_to @current_site.name, root_url(subdomain: @current_site.subdomain) %>
-	<% if can? :read, Post %>
-	| <%= link_to "News", root_url(subdomain: @current_site.subdomain)+'news' %>
-	| <%= link_to "Documents", root_url(subdomain: @current_site.subdomain)+'documents' %>
-	| <%= link_to "Photos", root_url(subdomain: @current_site.subdomain)+'photos' %>
+	<% if can? :read, News %>
+	| <%= link_to "News", news_index_url(subdomain: @current_site.subdomain) %>
+	| <%= link_to "Documents", documents_url(subdomain: @current_site.subdomain) %>
+	| <%= link_to "Photos", photos_url(subdomain: @current_site.subdomain) %>
 	<% end %>
 
 	<% if can? :edit, @current_site %>

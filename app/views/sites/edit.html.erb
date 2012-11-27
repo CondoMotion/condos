@@ -75,9 +75,7 @@
 | <%= link_to 'Post Document', new_documents_url(subdomain: @site.subdomain) %> 
 | <%= link_to 'Post Photo', new_photos_url(subdomain: @site.subdomain) %> 
 		<ul>	
-			<% @site.posts.each do |post| %>
-			 <li><%= link_to post.title, edit_post_path(post) %></li>
-			<% end %>
+			
 		</ul>		
 	</div>
 </div>

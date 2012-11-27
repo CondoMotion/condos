@@ -23,6 +23,13 @@ private
     end
   end
 
+  def current_site
+    if request.subdomain.present? && request.subdomain != "www"
+      @current_site = Site.find_by_subdomain!(request.subdomain)
+    end
+  end
+  helper_method :current_site
+
   def set_layout
     (@current_site && @current_site.layout_name) || 'application'
   end

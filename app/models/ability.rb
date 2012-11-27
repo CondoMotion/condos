@@ -7,15 +7,18 @@ class Ability
     if user.id == company.owner.id
       can :manage, Company, :owner_id => user.id
       can :manage, Site, :company_id => company.id
-      can :manage, Post, :site => { :company_id => company.id }
-      can :create, Post
+      can :manage, News, :site => { :company_id => company.id }
+      can :manage, Document, :site => { :company_id => company.id }
+      can :manage, Photo, :site => { :company_id => company.id }
       can :create, Membership
       can :manage, Membership, :site => { :company_id => company.id }
       can :manage, Role, :company_id => company.id
     elsif user.manager? 
       can :read, :all
     else
-      can :read, Post, :permission_id => role.permission
+      can :read, News, :permission_id => role.permission
+      can :read, Document, :permission_id => role.permission
+      can :read, Photo, :permission_id => role.permission
     end
 
     # Define abilities for the passed in user here. For example:
