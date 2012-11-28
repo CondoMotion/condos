@@ -44,6 +44,7 @@ class DocumentsController < ApplicationController
   def create
     @document = current_user.documents.new(params[:document])
     @document.site = current_site
+    @document.post = current_site.posts.new
 
     respond_to do |format|
       if @document.save

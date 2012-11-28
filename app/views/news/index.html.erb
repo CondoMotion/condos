@@ -16,8 +16,8 @@
   <tr>
     <td><%= news.title %></td>
     <td><%= news.content %></td>
-    <td><%= news.site %></td>
-    <td><%= news.user %></td>
+    <td><%= news.site.name %></td>
+    <td><%= news.user.email %></td>
     <td><%= news.permission %></td>
     <td><%= link_to 'Show', news %></td>
     <td><%= link_to 'Edit', edit_news_path(news) %></td>

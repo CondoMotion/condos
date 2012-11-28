@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121127120844) do
+ActiveRecord::Schema.define(:version => 20121128051331) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -76,19 +76,12 @@ ActiveRecord::Schema.define(:version => 20121127120844) do
   add_index "photos", ["user_id"], :name => "index_photos_on_user_id"
 
   create_table "posts", :force => true do |t|
-    t.string   "title"
-    t.text     "content"
     t.integer  "site_id"
-    t.integer  "permission_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-    t.string   "post_type"
-    t.string   "attachment"
-    t.integer  "user_id"
+    t.integer  "fields_id"
+    t.string   "fields_type"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
-
-  add_index "posts", ["permission_id"], :name => "index_posts_on_permission_id"
-  add_index "posts", ["site_id"], :name => "index_posts_on_site_id"
 
   create_table "roles", :force => true do |t|
     t.integer  "company_id"
@@ -113,6 +106,8 @@ ActiveRecord::Schema.define(:version => 20121127120844) do
     t.datetime "updated_at",            :null => false
     t.string   "layout_name"
     t.text     "custom_layout_content"
+    t.integer  "post_id"
+    t.string   "post_type"
   end
 
   add_index "sites", ["company_id"], :name => "index_sites_on_company_id"

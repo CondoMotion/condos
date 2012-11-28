@@ -1,5 +1,9 @@
 class Site < ActiveRecord::Base
   belongs_to :company
+
+  belongs_to :fields, polymorphic: true
+
+  has_many :posts
   has_many :documents
   has_many :photos
   has_many :news

@@ -44,6 +44,7 @@ class PhotosController < ApplicationController
   def create
     @photo = current_user.photos.new(params[:photo])
     @photo.site = current_site
+    @photo.post = current_site.posts.new
 
     respond_to do |format|
       if @photo.save
