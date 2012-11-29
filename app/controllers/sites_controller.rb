@@ -33,6 +33,8 @@ class SitesController < ApplicationController
 
   # GET /sites/1/edit
   def edit
+    @posts = @site.posts.all
+
   end
 
   # POST /sites

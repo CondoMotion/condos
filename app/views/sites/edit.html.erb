@@ -75,7 +75,9 @@
 | <%= link_to 'Post Document', new_document_url(subdomain: @site.subdomain) %> 
 | <%= link_to 'Post Photo', new_photo_url(subdomain: @site.subdomain) %> 
 		<ul>	
-			
+			<% @posts.each do |post| %>
+				<li><%= post.fields.title %> (<%= post.fields_type %>)</li>
+			<% end %>
 		</ul>		
 	</div>
 </div>

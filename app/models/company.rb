@@ -6,6 +6,7 @@ class Company < ActiveRecord::Base
   has_many :sites
   has_many :users
   has_many :roles
+  has_many :posts, through: :sites
 
   before_create :add_default_roles
 
@@ -20,17 +21,10 @@ private
 	end
 
 	def add_default_roles
-		@role = self.roles.new(name: "Resident", permission: 1)
-		@role.save
-
-		@role = self.roles.new(name: "Admin", permission: 2)
-		@role.save
-
-		@role = self.roles.new(name: "Trustee", permission: 3)
-		@role.save
-
-		@role = self.roles.new(name: "Manager", permission: 4)
-		@role.save
+		@role = self.roles.create(name: "Resident", permission: 1)
+		@role = self.roles.create(name: "Admin", permission: 2)
+		@role = self.roles.create(name: "Trustee", permission: 3)
+		@role = self.roles.create(name: "Manager", permission: 4)	
 	end
 
 end

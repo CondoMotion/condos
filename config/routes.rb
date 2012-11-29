@@ -1,9 +1,11 @@
 Condomotion2::Application.routes.draw do
+
   match '/', to: 'sites#show', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }
 
   resources :news
   resources :photos
   resources :documents
+  
   resources :roles
 
   resources :memberships do

@@ -45,6 +45,7 @@ class NewsController < ApplicationController
     @news = current_user.news.new(params[:news])
     @news.site = current_site
     @news.post = current_site.posts.new
+    @news.post.user = current_user
 
     respond_to do |format|
       if @news.save

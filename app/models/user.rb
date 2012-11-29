@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :documents
   has_many :photos
   has_many :news
+  has_many :posts
 
   accepts_nested_attributes_for :owned_company
 
