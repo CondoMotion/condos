@@ -40,10 +40,10 @@ class AttachmentUploader < CarrierWave::Uploader::Base
     process :resize_to_limit => [150, 150]
   end
 
-  protected
+protected
 
   def is_photo? attachment
-    model.post_type == "photos"
+    model.class == "Photos"
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
