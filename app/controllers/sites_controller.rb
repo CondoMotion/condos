@@ -40,7 +40,7 @@ class SitesController < ApplicationController
   # POST /sites
   # POST /sites.json
   def create
-    @site.company_id = current_company.id
+    
     respond_to do |format|
       if @site.save
         format.html { redirect_to root_url(subdomain: @site.subdomain), notice: 'Site was successfully created.' }

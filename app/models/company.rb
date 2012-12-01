@@ -12,6 +12,14 @@ class Company < ActiveRecord::Base
 
   validates_presence_of :name
 
+  def self.current_id=(id)
+    Thread.current[:company_id] = id
+  end
+  
+  def self.current_id
+    Thread.current[:company_id]
+  end
+
 private
 	def add_owner_to_company
 		@owner = self.owner

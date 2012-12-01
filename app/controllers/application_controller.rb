@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   layout :set_layout
+  around_filter :scope_current_company
 
   def after_sign_in_path_for(resource)
     if request.subdomain.present? && request.subdomain != 'www'
@@ -15,6 +16,24 @@ class ApplicationController < ActionController::Base
   end
 
 private
+  def current_company
+    if current_user
+      @current_company = current_user.company
+    elsif @current_site
+      @current_company = @current_site.company
+    else
+      @current_company = nil
+    end 
+  end
+  helper_method :current_company
+
+  def scope_current_company
+    Company.current_id = current_company.id
+    yield
+  ensure
+    Company.current_id = nil
+  end
+
   def load_site
     @current_site = Site.find_by_subdomain!(request.subdomain)
     if @current_site.nil?
@@ -34,16 +53,7 @@ private
     (@current_site && @current_site.layout_name) || 'application'
   end
 
-  def current_company
-    if current_user
-      @current_company = current_user.company
-    elsif @current_site
-      @current_company = @current_site.company
-    else
-      @current_company = nil
-    end
-  end
-  helper_method :current_company
+  
 
   def current_role
   	# UPDATE THIS METHOD TO DETERMINE CURRENT ROLE FOR THE USER
