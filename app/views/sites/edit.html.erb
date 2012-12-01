@@ -1,3 +1,6 @@
+
+<h4>CURRENT USER IS MEMBER? <%= @site.user_ids.include?(current_user.id) ? "Yes" : "No" %></h4>
+<h4>SITE ROLE: <%= current_user.site_role(@site).name %></h4>
 <div class="dropdown" style="cursor: pointer;">
   <h1 class="dropdown-toggle" id="drop4" data-toggle="dropdown">
   	<%= @site.name %> <b class="caret" style="margin-top: 18px;"></b> 
@@ -63,9 +66,7 @@
 		<h4>Residents</h4>
 		<ul>
 			<% @site.memberships.each do |m| %>
-				<% unless m.role.name == "Manager" %>
-	      	<li><%= link_to(m.user.email, edit_membership_path(m)) %> (<%= m.role.name.titleize %>) <%= link_to "X", m, method: :delete %></li>
-				<% end %>			
+	      <li><%= link_to(m.user.email, edit_membership_path(m)) %> (<%= m.role.name.titleize %>) <%= link_to "X", m, method: :delete %></li>
 			<% end %>
 		</ul>
 	</div>
